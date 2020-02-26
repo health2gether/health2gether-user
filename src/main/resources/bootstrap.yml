@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: health2gether-user
+  profiles:
+    active:
+      dev
+
+server:
+  port: 8082

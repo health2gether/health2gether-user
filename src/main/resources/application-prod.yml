@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://health2gether-mysql:3306/health2gether-user
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate.format_sql: true
+  zipkin:
+    baseUrl: http://health2gether-zipkin:9411/
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://health2gether-discovery-server:8761/eureka/
