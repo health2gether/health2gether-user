@@ -1,11 +1,11 @@
 package com.health2gether.user.service;
 
+import com.health2gether.user.PasswordHelper;
 import com.health2gether.user.converter.UserConverter;
 import com.health2gether.user.dto.UserResponse;
 import com.health2gether.user.entity.UserEntity;
 import com.health2gether.user.dto.UserRequest;
 import com.health2gether.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,11 +19,13 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private UserConverter userConverter;
+
+    public UserService(UserRepository userRepository, UserConverter userConverter) {
+        this.userRepository = userRepository;
+        this.userConverter = userConverter;
+    }
 
     public UserResponse save(final UserRequest userRequest) {
         UserEntity userEntity = userRepository.save(userConverter.toUserEntity(userRequest));
@@ -32,8 +34,8 @@ public class UserService {
     }
 
     public UserResponse findUserByEmailAndPassword(final String email, final String password) {
-        final Optional<UserEntity> userResult = userRepository.findByEmailAndPassword(email, password);
-        if(userResult.isPresent()) {
+        final Optional<UserEntity> userResult = userRepository.findByEmail(email);
+        if(userResult.isPresent() && PasswordHelper.checkPassword(password, userResult.get().getPassword())) {
             return userConverter.toUserResponse(userResult.get());
         }
         return null;
