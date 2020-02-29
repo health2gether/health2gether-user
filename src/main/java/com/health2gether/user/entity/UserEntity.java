@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -68,5 +69,8 @@ public class UserEntity implements Serializable {
     @OrderBy
     @JsonIgnore
     private Collection<AuthorityEntity> authorities;
+
+    @NotNull
+    private LocalDate birthday;
 
 }

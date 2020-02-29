@@ -4,9 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
 
 /**
  * @author flaoliveira
@@ -27,7 +28,12 @@ public class UserRequest implements Serializable {
     @NotNull
     private String email;
 
+    @NotNull
     private String phone;
+
+    @NotNull
+    @Pattern(regexp = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$")
+    private String birthday;
 
     @NotNull
     private String password;
