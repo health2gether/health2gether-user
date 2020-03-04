@@ -2,26 +2,26 @@ package com.health2gether.user.dto;
 
 import lombok.*;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * @author flaoliveira
  * @version : $<br/>
  * : $
- * @since 26/10/2019 15:48
+ * @since 20/10/2019 22:47
  */
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse implements Serializable {
+@NoArgsConstructor
+public class SportResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String name;
-    private String email;
-    private String phone;
-
+    private String urlIcon;
 }
