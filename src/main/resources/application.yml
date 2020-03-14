@@ -4,11 +4,8 @@
 #      percentage: 0.5
 
 #eureka:
-#  instance:
-#    preferIpAddress: true
-#  client:
-#    registerWithEureka: true
-#    fetchRegistry: true
-eureka:
+  instance:
+    preferIpAddress: true
   client:
-    enabled: false
+    registerWithEureka: true
+    fetchRegistry: true

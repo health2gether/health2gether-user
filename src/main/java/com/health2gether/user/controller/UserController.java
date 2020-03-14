@@ -23,6 +23,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("teste")
+    public ResponseEntity<String> teste() {
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<UserResponse> save(@Valid @RequestBody final UserRequest userRequest) {
         final UserResponse userResponse = userService.save(userRequest);

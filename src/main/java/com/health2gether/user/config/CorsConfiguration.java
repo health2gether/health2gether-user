@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@Profile("!dev")
 public class CorsConfiguration
 {
     @Bean
@@ -17,7 +16,7 @@ public class CorsConfiguration
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200", "http://health2gether.s3-website-us-east-1.amazonaws.com");
+                        .allowedOrigins("*").allowedMethods("*").allowedHeaders("*");
             }
         };
     }
