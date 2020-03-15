@@ -23,5 +23,6 @@ public class UserResponse implements Serializable {
     private String name;
     private String email;
     private String phone;
+    private String birthday;
 
 }

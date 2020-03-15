@@ -4,6 +4,7 @@ import com.health2gether.user.PasswordHelper;
 import com.health2gether.user.dto.UserRequest;
 import com.health2gether.user.dto.UserResponse;
 import com.health2gether.user.entity.UserEntity;
+import com.health2gether.user.entity.enums.UserStatus;
 import com.health2gether.user.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -38,12 +39,15 @@ public class UserService {
         BeanUtils.copyProperties(userRequest, userEntity, "password", "birthday");
         userEntity.setPassword(PasswordHelper.hashPassword(userRequest.getPassword()));
         userEntity.setBirthday(LocalDate.parse(userRequest.getBirthday(), PATTERN));
+        userEntity.setStatus(UserStatus.ACTIVE);
         return userEntity;
     }
 
     private UserResponse convertToUserResponse(final UserEntity userEntity) {
         UserResponse userResponse = new UserResponse();
-        BeanUtils.copyProperties(userEntity, userResponse);
+        BeanUtils.copyProperties(userEntity, userResponse, "birthday");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        userResponse.setBirthday(userEntity.getBirthday().format(dateTimeFormatter));
         return userResponse;
     }
 
@@ -55,12 +59,20 @@ public class UserService {
         return null;
     }
 
-    public Optional<UserEntity> findById(Long userId) {
-        return userRepository.findById(userId);
+    public UserResponse findById(Long userId) {
+        Optional<UserEntity> userResult = userRepository.findById(userId);
+        if(userResult.isPresent()) {
+            return convertToUserResponse(userResult.get());
+        }
+        return null;
     }
 
-    public void save(final UserEntity userEntity) {
-        userRepository.save(userEntity);
+    public UserResponse findByEmail(String email) {
+        Optional<UserEntity> userResult = userRepository.findByEmail(email);
+        if(userResult.isPresent()) {
+            return convertToUserResponse(userResult.get());
+        }
+        return null;
     }
 
 }
